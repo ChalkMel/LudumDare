@@ -55,7 +55,9 @@ public class Inventory : MonoBehaviour
     private void SelectSlot(int slotIndex)
     {
         if (string.IsNullOrEmpty(itemName[slotIndex]))
+        {
             return;
+        }
 
         if (selectedSlotIndex != -1)
         {
@@ -114,5 +116,16 @@ public class Inventory : MonoBehaviour
 
         selectedSlotIndex = -1;
         selectedItemName = "";
+    }
+    public bool HasItem(string itemNameToCheck)
+    {
+        for (int i = 0; i < itemName.Length; i++)
+        {
+            if (itemName[i] == itemNameToCheck)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -17,10 +17,13 @@ public class Darkness : MonoBehaviour
     {
         if (other.CompareTag("Player") && !hasPlayed)
         {
+            Inventory inventory = FindFirstObjectByType<Inventory>();
+            if (inventory != null && !inventory.HasItem("Bunny"))
+            {
                 audioSource.Play();
                 hasPlayed = true;
                 darknessPanel.SetActive(true);
-            
+            }
         }
     }
 
