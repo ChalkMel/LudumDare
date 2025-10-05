@@ -4,15 +4,11 @@ public class Item : MonoBehaviour
 {
     public string itemName;
     public Sprite itemIcon;
+    public string itemDescription;
 
     private void OnMouseDown()
     {
-        Inventory inventory = FindFirstObjectByType<Inventory>();
-        if (inventory != null)
-        {
-            inventory.AddItem(this);
-            Destroy(gameObject);
-        }
+        Inventory.instance.AddItem(this);
+        Destroy(gameObject);
     }
 }
-
