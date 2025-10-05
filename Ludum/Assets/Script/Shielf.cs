@@ -5,17 +5,19 @@ using UnityEngine.EventSystems;
 
 public class Shielf : MonoBehaviour
 {
+    [System.Serializable]
     public class InventoryItem
     {
         public GameObject itemObject;
         public int correctPosition; 
-        public bool isOnShelf = false;
-        public int currentSlotIndex = -1;
-        public Vector3 originalPosition;
-        public Transform originalParent;
+        [HideInInspector] public bool isOnShelf = false;
+        [HideInInspector] public int currentSlotIndex = -1;
+        [HideInInspector] public Vector3 originalPosition;
+        [HideInInspector] public Transform originalParent;
     }
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
     public GameObject[] shelfSlots; 
+
     private InventoryItem selectedItem;
     private GraphicRaycaster raycaster;
     private EventSystem eventSystem;
@@ -238,6 +240,7 @@ public class Shielf : MonoBehaviour
            //
         }
     }
+
 
     public void ResetAllItems()
     {

@@ -8,7 +8,6 @@ public class Inventory : MonoBehaviour
     public Image[] slots;
     public Button[] buts;
     public string[] itemName;
-    public bool Key = false;
 
     private SlotDescription[] slotDescriptions;
 
@@ -42,7 +41,7 @@ public class Inventory : MonoBehaviour
 
                 if (slotDescriptions[i] != null)
                 {
-                    slotDescriptions[i].UpdateItemData(item.itemName, item.itemName + " - описание предмета");
+                    slotDescriptions[i].UpdateItemData(item.itemName, item.itemName + " - " + item.itemDescription);
                 }
 
                 Debug.Log("Предмет добавлен в ячейку " + i);
