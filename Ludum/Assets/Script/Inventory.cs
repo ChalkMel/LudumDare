@@ -31,17 +31,31 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(Item item)
     {
+        if (item == null)
+        {
+            Debug.LogError("Item is null!");
+            return;
+        }
+
         for (int i = 0; i < slots.Length; i++)
         {
+            if (slots[i] == null) continue;
+
             if (slots[i].sprite == null)
             {
                 slots[i].sprite = item.itemIcon;
                 itemName[i] = item.itemName;
                 slots[i].color = Color.white;
 
-                if (slotDescriptions[i] != null)
+                // Проверяем slotDescriptions[i] на null
+                if (slotDescriptions != null && i < slotDescriptions.Length && slotDescriptions[i] != null)
                 {
                     slotDescriptions[i].UpdateItemData(item.itemName, item.itemName + " - " + item.itemDescription);
+                    Debug.Log("Item data updated in slot " + i);
+                }
+                else
+                {
+                    Debug.LogWarning("SlotDescription is null for slot " + i);
                 }
 
                 Debug.Log("Предмет добавлен в ячейку " + i);
@@ -84,6 +98,7 @@ public class Inventory : MonoBehaviour
             if (slotDescriptions[selectedSlotIndex] != null)
             {
                 slotDescriptions[selectedSlotIndex].ClearSlot();
+
             }
 
             itemName[selectedSlotIndex] = "";

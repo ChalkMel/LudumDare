@@ -39,7 +39,7 @@ public class IsometricSorter : MonoBehaviour
 
         // Устанавливаем pivot point в нижнюю часть коллайдера
         Bounds bounds = objectCollider.bounds;
-        pivotObj.transform.localPosition = new Vector3(0, bounds.extents.y - 0.004f, 0);
+        pivotObj.transform.localPosition = new Vector3(0, bounds.extents.y, 0);
 
         pivotPoint = pivotObj.transform;
     }

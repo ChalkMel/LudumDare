@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Shielf : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class Shielf : MonoBehaviour
     private InventoryItem selectedItem;
     private GraphicRaycaster raycaster;
     private EventSystem eventSystem;
+    [SerializeField] private TMP_Text text;
+    [SerializeField] private GameObject panel;
 
     void Start()
     {
@@ -236,8 +239,9 @@ public class Shielf : MonoBehaviour
     {
         if (CheckCorrectPlacement())
         {
-            Debug.Log("Поздравляем! Все предметы на своих местах!");
-           //
+            panel.SetActive(true);
+            text.text = "«Я помню… всё.\nЯ потеряла их. Мужа. Детей. Всё, что любила.\n Но… они были со мной. Настоящие.\nИ в моём сердце они останутся навсегда.Я должна… жить.»";
+
         }
     }
 

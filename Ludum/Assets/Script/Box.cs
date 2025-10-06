@@ -1,14 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class UsableItem : MonoBehaviour
+public class Box : MonoBehaviour
 {
     [SerializeField] private string neededItem;
     [SerializeField] private string success = "";
     [SerializeField] private string interact = "";
-    [SerializeField] private GameObject stool;
+    [SerializeField] private string interactAfter = "Did it";
+    [SerializeField] private GameObject key;
     private GameObject DialogWindow;
     private TMP_Text textDialogue;
+    private bool picked = false;
 
     private void Awake()
     {
@@ -32,17 +35,19 @@ public class UsableItem : MonoBehaviour
         else
         {
             DialogWindow.SetActive(true);
-            textDialogue.text = interact;
+            textDialogue.text = interactAfter;
         }
     }
 
     private void IfRight()
     {
-        GetComponent<Collider2D>().enabled = false;
-        Destroy(gameObject);
-        if(neededItem == "Stool")
+        if (!picked)
         {
-            stool.SetActive(true );
-        }
+            DialogWindow.SetActive(true);
+            textDialogue.text = interact;
+            key.SetActive(true);
+            picked = true;
+
     }
+}
 }

@@ -26,5 +26,11 @@ public class Item : MonoBehaviour
         textDialogue.text = interact;
         cutScene.SetActive(true);
         Destroy(gameObject);
+        if (itemName == "WeddingBand" || itemName == "BabyToy" || itemName == "ToyCar" || itemName == "Ticket" || itemName == "CarPart" || itemName == "Drawing")
+        {
+            CountUI countUI = FindFirstObjectByType<CountUI>();
+            countUI.countClues--;
+            countUI.counter.text = countUI.countClues.ToString();
+        }
     }
 }

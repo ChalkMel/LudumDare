@@ -26,17 +26,19 @@ public class Darkness : MonoBehaviour
         if (other.CompareTag("Player") && !hasPlayed)
         {
             Inventory inventory = FindFirstObjectByType<Inventory>();
-            if (!inventory.HasItem("Bunny"))
+            if (inventory.HasItem("Bunny") && inventory.GetSelectedItem() == "Bunny")
+            {
+
+                    inventory.UseItem("Bunny");
+                    darknesscollider.SetActive(false);
+            }
+            else
             {
                 audioSource.Play();
                 hasPlayed = true;
                 darknessPanel.SetActive(true);
                 DialogWindow.SetActive(true);
                 textDialogue.text = interact;
-            }
-            if (inventory.HasItem("Bunny"))
-            {
-                darknesscollider.SetActive(false);
             }
         }
     }
