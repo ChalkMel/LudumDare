@@ -34,8 +34,16 @@ public class Box : MonoBehaviour
         }
         else
         {
-            DialogWindow.SetActive(true);
-            textDialogue.text = interactAfter;
+            if (picked) 
+            {
+                DialogWindow.SetActive(true);
+                textDialogue.text = interactAfter;
+            }
+            else
+            {
+                DialogWindow.SetActive(true);
+                textDialogue.text = interact;
+            }
         }
     }
 
@@ -47,7 +55,6 @@ public class Box : MonoBehaviour
             textDialogue.text = interact;
             key.SetActive(true);
             picked = true;
-
     }
 }
 }

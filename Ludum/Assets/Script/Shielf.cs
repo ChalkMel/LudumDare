@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Shielf : MonoBehaviour
 {
@@ -10,20 +11,27 @@ public class Shielf : MonoBehaviour
     public class InventoryItem
     {
         public GameObject itemObject;
-        public int correctPosition; 
+        public int correctPosition;
         [HideInInspector] public bool isOnShelf = false;
         [HideInInspector] public int currentSlotIndex = -1;
         [HideInInspector] public Vector3 originalPosition;
         [HideInInspector] public Transform originalParent;
     }
     public List<InventoryItem> inventoryItems = new List<InventoryItem>();
-    public GameObject[] shelfSlots; 
+    public GameObject[] shelfSlots;
 
     private InventoryItem selectedItem;
     private GraphicRaycaster raycaster;
     private EventSystem eventSystem;
     [SerializeField] private TMP_Text text;
     [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private Button gameOverButton;
+    [SerializeField] private Button gameFinishButton;
+    [SerializeField] private Button finaleButton;
+    [SerializeField] private Image image;
+    [SerializeField] private GameObject image2;
+    [SerializeField] private GameObject finale;
 
     void Start()
     {
@@ -141,7 +149,7 @@ public class Shielf : MonoBehaviour
         Image itemImage = item.itemObject.GetComponent<Image>();
         if (itemImage != null)
         {
-           // itemImage.color = Color.yellow;
+             itemImage.color = Color.yellow;
         }
 
         Debug.Log($"Выбран предмет: {item.itemObject.name}");
@@ -156,11 +164,11 @@ public class Shielf : MonoBehaviour
         {
             if (!selectedItem.isOnShelf || selectedItem.currentSlotIndex != selectedItem.correctPosition)
             {
-               // itemImage.color = Color.white;
+                 itemImage.color = Color.white;
             }
             else
             {
-              //  itemImage.color = Color.green; 
+                itemImage.color = Color.white;
             }
         }
 
@@ -186,19 +194,6 @@ public class Shielf : MonoBehaviour
         selectedItem.isOnShelf = true;
         selectedItem.currentSlotIndex = shelfIndex;
 
-        //Image itemImage = selectedItem.itemObject.GetComponent<Image>();
-        //if (itemImage != null)
-        //{
-        //    if (shelfIndex == selectedItem.correctPosition)
-        //    {
-        //        itemImage.color = Color.green;
-        //    }
-        //    else
-        //    {
-        //        itemImage.color = Color.white;
-        //    }
-        //}
-
         Debug.Log($"Предмет {selectedItem.itemObject.name} размещен на полке в позиции {shelfIndex}");
 
         CheckSolution();
@@ -213,12 +208,6 @@ public class Shielf : MonoBehaviour
         item.itemObject.transform.localScale = Vector3.one;
         item.isOnShelf = false;
         item.currentSlotIndex = -1;
-
-        //Image itemImage = item.itemObject.GetComponent<Image>();
-        //if (itemImage != null)
-        //{
-        //    itemImage.color = Color.white;
-        //}
 
         Debug.Log($"Предмет {item.itemObject.name} возвращен в инвентарь");
     }
@@ -235,17 +224,43 @@ public class Shielf : MonoBehaviour
         return true;
     }
 
+    public bool AllItemsPlaced()
+    {
+        foreach (var item in inventoryItems)
+        {
+            if (!item.isOnShelf)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool HasIncorrectPlacement()
+    {
+        foreach (var item in inventoryItems)
+        {
+            if (item.isOnShelf && item.currentSlotIndex != item.correctPosition)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void CheckSolution()
     {
         if (CheckCorrectPlacement())
         {
             panel.SetActive(true);
-            text.text = "«Я помню… всё.\nЯ потеряла их. Мужа. Детей. Всё, что любила.\n Но… они были со мной. Настоящие.\nИ в моём сердце они останутся навсегда.Я должна… жить.»";
-
+            gameFinishButton.onClick.AddListener(End);
+        }
+        else if (AllItemsPlaced() && HasIncorrectPlacement())
+        {
+                gameOverPanel.SetActive(true);
+            gameOverButton.onClick.AddListener(Restart);
         }
     }
-
-
     public void ResetAllItems()
     {
         foreach (var item in inventoryItems)
@@ -256,5 +271,13 @@ public class Shielf : MonoBehaviour
             }
         }
         DeselectItem();
+    }
+    void Restart()
+    {
+        SceneManager.LoadScene("Game");
+    }
+    public void End()
+    {
+        image2.SetActive(true);
     }
 }
