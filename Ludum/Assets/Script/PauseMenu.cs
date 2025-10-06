@@ -6,19 +6,16 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private GameObject exitMenu;
     [SerializeField] private Button exitMenuYesBut;
     [SerializeField] private Button exitMenuNoBut;
     [SerializeField] private Button exitBut;
     [SerializeField] private Button resumeBut;
-    [SerializeField] private Button settingsBut;
-    [SerializeField] private Button settingsMenuNoBut;
+
     private void Awake()
     {
 
         exitBut.onClick.AddListener(ExitGameMenu);
-        settingsBut.onClick.AddListener(SettingsMenu);
         resumeBut.onClick.AddListener(Resume);
     }
     void ExitGameMenu()
@@ -35,13 +32,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Return()
     {
-        exitMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-    }
-    void SettingsMenu()
-    {
-        settingsMenu.SetActive(true);
-        settingsMenuNoBut.onClick.AddListener(Return);
+        exitMenu.SetActive(false); 
     }
 
     void Update()

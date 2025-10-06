@@ -44,13 +44,14 @@ public class Inventory : MonoBehaviour
             if (slots[i].sprite == null)
             {
                 slots[i].sprite = item.itemIcon;
+                slots[i].color = new Color(0, 0, 0, 1);
                 itemName[i] = item.itemName;
                 slots[i].color = Color.white;
 
                 // Проверяем slotDescriptions[i] на null
                 if (slotDescriptions != null && i < slotDescriptions.Length && slotDescriptions[i] != null)
                 {
-                    slotDescriptions[i].UpdateItemData(item.itemName, item.itemName + " - " + item.itemDescription);
+                    slotDescriptions[i].UpdateItemData(item.itemName, item.itemDescription);
                     Debug.Log("Item data updated in slot " + i);
                 }
                 else
@@ -93,7 +94,7 @@ public class Inventory : MonoBehaviour
         if (selectedSlotIndex != -1 && selectedItemName == requiredItemName)
         {
             slots[selectedSlotIndex].sprite = null;
-            slots[selectedSlotIndex].color = Color.white;
+            slots[selectedSlotIndex].color = new Color(0,0,0,0);
 
             if (slotDescriptions[selectedSlotIndex] != null)
             {

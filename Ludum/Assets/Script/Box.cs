@@ -9,9 +9,11 @@ public class Box : MonoBehaviour
     [SerializeField] private string interact = "";
     [SerializeField] private string interactAfter = "Did it";
     [SerializeField] private GameObject key;
+    [SerializeField] private Sprite sprite;
     private GameObject DialogWindow;
     private TMP_Text textDialogue;
     private bool picked = false;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
@@ -55,6 +57,7 @@ public class Box : MonoBehaviour
             textDialogue.text = interact;
             key.SetActive(true);
             picked = true;
+            spriteRenderer.sprite = sprite;
     }
 }
 }

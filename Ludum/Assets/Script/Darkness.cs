@@ -42,6 +42,16 @@ public class Darkness : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Inventory inventory = FindFirstObjectByType<Inventory>();
+        if (inventory.HasItem("Bunny") && inventory.GetSelectedItem() == "Bunny")
+        {
+
+            inventory.UseItem("Bunny");
+            darknesscollider.SetActive(false);
+        }
+    }
 
     void OnTriggerExit2D(Collider2D other)
     {

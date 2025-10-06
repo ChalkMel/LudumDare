@@ -10,17 +10,18 @@ public class Door : MonoBehaviour
     [SerializeField] private string interactSuc = ""; 
     [SerializeField] Animation open;
     [SerializeField] AudioSource play;
-    private void Awake()
+    private void Start()
     {
         DialogWindow = GameObject.FindGameObjectWithTag("DialogWindow");
         textDialogue = DialogWindow.GetComponentInChildren<TMP_Text>();
     }
     void OnMouseDown()
     {
-        Inventory inventory = FindFirstObjectByType<Inventory>();
-        if (inventory.HasItem("Ticket") && inventory.HasItem("WeddingBand") && inventory.HasItem("ToyCar") && inventory.HasItem("Drawing") && inventory.HasItem("BabyToy") && inventory.HasItem("CarPart"))
-        {
+        CountUI countUI = FindFirstObjectByType<CountUI>();
+        if (countUI.countClues == 0)
+        { 
             textDialogue.text = interactSuc;
+            play.enabled = true;
             play.Play();
             GetComponent<Collider2D>().enabled = false;
             SceneManager.LoadScene("FinalPuzzle");

@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     private TMP_Text textDialogue;
     [SerializeField] private GameObject cutScene;
     [SerializeField] private string interact = "";
+    [SerializeField] AudioSource play;
     private void Start()
     {
         DialogWindow = GameObject.FindGameObjectWithTag("DialogWindow");
@@ -26,11 +27,13 @@ public class Item : MonoBehaviour
         textDialogue.text = interact;
         cutScene.SetActive(true);
         Destroy(gameObject);
-        if (itemName == "WeddingBand" || itemName == "BabyToy" || itemName == "ToyCar" || itemName == "Ticket" || itemName == "CarPart" || itemName == "Drawing")
+        if (itemName == "WeddingBand" || itemName == "Bottle" || itemName == "Toy Car" || itemName == "Ticket" || itemName == "Torn Clothes" || itemName == "Drawing")
         {
             CountUI countUI = FindFirstObjectByType<CountUI>();
             countUI.countClues--;
             countUI.counter.text = countUI.countClues.ToString();
+            play.enabled = true;
+            play.Play();
         }
     }
 }

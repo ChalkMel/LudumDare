@@ -26,6 +26,7 @@ public class UsableItem : MonoBehaviour
             {
                 DialogWindow.SetActive(true);
                 textDialogue.text = success;
+                Destroy(gameObject);
                 IfRight();
             }
         }
@@ -38,8 +39,7 @@ public class UsableItem : MonoBehaviour
 
     private void IfRight()
     {
-        GetComponent<Collider2D>().enabled = false;
-        Destroy(gameObject);
+        
         if(neededItem == "Stool")
         {
             stool.SetActive(true );
