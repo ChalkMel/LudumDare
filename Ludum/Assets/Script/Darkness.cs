@@ -1,14 +1,22 @@
+using TMPro;
 using UnityEngine;
 
 public class Darkness : MonoBehaviour
 {
+    private GameObject DialogWindow;
+    private TMP_Text textDialogue;
+
     public AudioClip whisperSound;
     public GameObject darknessPanel;
+    public GameObject darknesscollider;
     private AudioSource audioSource;
     private bool hasPlayed = false;
+    [SerializeField] private string interact = "";
 
     void Start()
     {
+        DialogWindow = GameObject.FindGameObjectWithTag("DialogWindow");
+        textDialogue = DialogWindow.GetComponentInChildren<TMP_Text>();
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = whisperSound;
     }
@@ -23,6 +31,12 @@ public class Darkness : MonoBehaviour
                 audioSource.Play();
                 hasPlayed = true;
                 darknessPanel.SetActive(true);
+                DialogWindow.SetActive(true);
+                textDialogue.text = interact;
+            }
+            if (inventory.HasItem("Bunny"))
+            {
+                darknesscollider.SetActive(false);
             }
         }
     }
@@ -34,7 +48,7 @@ public class Darkness : MonoBehaviour
             darknessPanel.SetActive(false);
             hasPlayed = false;
             audioSource.Stop();
-
+            DialogWindow.SetActive(false);
         }
     }
 }

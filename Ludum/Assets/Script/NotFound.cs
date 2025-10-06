@@ -1,30 +1,23 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
-public class Item : MonoBehaviour
+public class NotFound : MonoBehaviour
 {
-    public string itemName;
-    public Sprite itemIcon;
-    public string itemDescription;
-
-    private GameObject DialogWindow;
-    private TMP_Text textDialogue;
-    [SerializeField] private GameObject cutScene;
+    
+     private GameObject DialogWindow;
+     private TMP_Text textDialogue;
     [SerializeField] private string interact = "";
-    private void Start()
+    private void Awake()
     {
         DialogWindow = GameObject.FindGameObjectWithTag("DialogWindow");
         textDialogue = DialogWindow.GetComponentInChildren<TMP_Text>();
-
     }
-
     private void OnMouseDown()
     {
-        Inventory.instance.AddItem(this);
+        
         DialogWindow.SetActive(true);
         textDialogue.text = interact;
-        cutScene.SetActive(true);
-        Destroy(gameObject);
     }
 }
